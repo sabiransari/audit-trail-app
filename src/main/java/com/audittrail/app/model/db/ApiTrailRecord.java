@@ -1,19 +1,16 @@
 package com.audittrail.app.model.db;
 
 import com.audittrail.app.model.TrailType;
-import jakarta.annotation.Nullable;
-import lombok.Builder;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDateTime;
 
 @Setter
 @Getter
-@Table(name = "trail")
+@Entity(name = "trail")
 public class ApiTrailRecord extends TrailRecord {
 
     public ApiTrailRecord() {
@@ -21,8 +18,10 @@ public class ApiTrailRecord extends TrailRecord {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String requestSource;
+    @Enumerated(EnumType.STRING)
     private RequestMethod requestMethod;
     private String requestPath;
     private String requestBody;
